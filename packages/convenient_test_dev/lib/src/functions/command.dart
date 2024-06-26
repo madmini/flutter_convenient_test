@@ -27,7 +27,7 @@ abstract class TCommand {
 }
 
 extension ExtTCommand on TCommand {
-  Future<void> should(Matcher matcher, {String? reason, bool? settle}) async {
+  Future<void> should(Matcher matcher, {String? reason, bool? settle = true}) async {
     final log = t.log('ASSERT', '', type: LogSubEntryType.ASSERT);
     await shouldRaw(
       matcher,
@@ -44,7 +44,7 @@ extension ExtTCommand on TCommand {
     required LogUpdate logUpdate,
     required LogSnapshot logSnapshot,
     required bool snapshotWhenSuccess,
-    bool? settle,
+    bool? settle = true,
   }) =>
       _expectWithRetry(
         t,
@@ -75,7 +75,7 @@ Future<void> _expectWithRetry(
   required LogUpdate logUpdate,
   required LogSnapshot logSnapshot,
   required bool snapshotWhenSuccess,
-  bool? settle,
+  bool? settle = true,
 }) async {
   final startTime = DateTime.now();
   var failedCount = 0;

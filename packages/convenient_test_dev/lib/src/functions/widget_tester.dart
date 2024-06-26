@@ -81,7 +81,7 @@ extension ExtWidgetTesterPump on WidgetTester {
         realDelayDuration: runAsyncDelay, pumpDuration: pumpDuration);
   }
 
-  Future<void> pumpAndMaybeSettleWithRunAsync({required bool? settle}) async {
+  Future<void> pumpAndMaybeSettleWithRunAsync({bool? settle = true}) async {
     (settle ?? true)
         ? await pumpAndSettleWithRunAsync()
         : await pumpWithRunAsync();

@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 extension ConvenientTestInteraction on ConvenientTest {
   Future<void> visit(String routeName,
-      {Object? arguments, bool? settle, bool replace = false}) async {
+      {Object? arguments, bool? settle = true, bool replace = false}) async {
     final log = this.log(
         'VISIT',
         routeName +
@@ -33,7 +33,7 @@ extension ConvenientTestInteraction on ConvenientTest {
     await log.snapshot(name: 'after');
   }
 
-  Future<void> pageBack({bool? settle}) async {
+  Future<void> pageBack({bool? settle = true}) async {
     final log = this.log('POP', '');
 
     await pump();
@@ -45,7 +45,7 @@ extension ConvenientTestInteraction on ConvenientTest {
     await log.snapshot(name: 'after');
   }
 
-  Future<void> pullDownToRefresh({bool? settle}) async {
+  Future<void> pullDownToRefresh({bool? settle = true}) async {
     final log = this.log('PULL REFRESH', '');
 
     await pump();

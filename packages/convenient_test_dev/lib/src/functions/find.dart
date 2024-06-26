@@ -33,7 +33,7 @@ extension ConvenientTestFind on ConvenientTest {
 extension ExtFinder on Finder {
   // forward methods
 
-  Future<void> should(Matcher matcher, {String? reason, bool? settle}) async =>
+  Future<void> should(Matcher matcher, {String? reason, bool? settle = true}) async =>
       TFinderCommand.auto(this).should(matcher, reason: reason, settle: settle);
 
   Future<void> replaceText(String text) =>
@@ -42,14 +42,14 @@ extension ExtFinder on Finder {
   Future<void> enterTextWithoutReplace(String text) =>
       TFinderCommand.auto(this).enterTextWithoutReplace(text);
 
-  Future<void> tap({bool warnIfMissed = true, bool? settle}) =>
+  Future<void> tap({bool warnIfMissed = true, bool? settle = true}) =>
       TFinderCommand.auto(this).tap(warnIfMissed: warnIfMissed, settle: settle);
 
-  Future<void> longPress({bool warnIfMissed = true, bool? settle}) =>
+  Future<void> longPress({bool warnIfMissed = true, bool? settle = true}) =>
       TFinderCommand.auto(this)
           .longPress(warnIfMissed: warnIfMissed, settle: settle);
 
-  Future<void> drag(Offset offset, {bool warnIfMissed = true, bool? settle}) =>
+  Future<void> drag(Offset offset, {bool warnIfMissed = true, bool? settle = true}) =>
       TFinderCommand.auto(this)
           .drag(offset, warnIfMissed: warnIfMissed, settle: settle);
 
@@ -155,7 +155,7 @@ class TFinderCommand extends TCommand {
 
   Future<void> replaceText(
     String text, {
-    bool? settle,
+    bool? settle = true,
   }) =>
       act(
         act: (log) => t.tester.enterText(finder, text),
@@ -167,7 +167,7 @@ class TFinderCommand extends TCommand {
 
   Future<void> enterTextWithoutReplace(
     String text, {
-    bool? settle,
+    bool? settle = true,
   }) {
     const logTitle = 'TYPE';
     final basicLogMessage = '"$text" to ${finder.describeMatch(Plurality.one)}';
@@ -190,7 +190,7 @@ class TFinderCommand extends TCommand {
 
   Future<void> tap({
     bool warnIfMissed = true,
-    bool? settle,
+    bool? settle = true,
   }) =>
       act(
         act: (log) => t.tester.tap(finder, warnIfMissed: warnIfMissed),
@@ -203,7 +203,7 @@ class TFinderCommand extends TCommand {
   Future<void> tapAtAlignment(
     Alignment alignment, {
     bool warnIfMissed = true,
-    bool? settle,
+    bool? settle = true,
   }) =>
       act(
         act: (log) =>
@@ -216,7 +216,7 @@ class TFinderCommand extends TCommand {
 
   Future<void> longPress({
     bool warnIfMissed = true,
-    bool? settle,
+    bool? settle = true,
   }) =>
       act(
         act: (log) => t.tester.longPress(finder, warnIfMissed: warnIfMissed),
@@ -229,7 +229,7 @@ class TFinderCommand extends TCommand {
   Future<void> drag(
     Offset offset, {
     bool warnIfMissed = true,
-    bool? settle,
+    bool? settle = true,
   }) =>
       act(
         act: (log) => t.tester.drag(finder, offset, warnIfMissed: warnIfMissed),
@@ -245,7 +245,7 @@ class TFinderCommand extends TCommand {
     required List<Offset> firstFingerOffsets,
     required List<Offset> secondFingerOffsets,
     bool? logMove,
-    bool? settle,
+    bool? settle = true,
   }) =>
       act(
         act: (log) => t.tester.multiDrag(
@@ -269,7 +269,7 @@ class TFinderCommand extends TCommand {
     required Matcher? preCondition,
     required String logTitle,
     required String logMessage,
-    bool? settle,
+    bool? settle = true,
   }) async {
     final log = t.log(logTitle, logMessage);
 
